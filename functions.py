@@ -12,13 +12,13 @@ class Passive:
         pass
 
     @staticmethod
-    def read_file(self) -> pd.DataFrame:
-        df = pd.read_csv('/files/NAFTRAC_20180131.csv', skiprows=2)
+    def read_file() -> pd.DataFrame:
+        df = pd.read_csv('~\\Documents\\GitHub\\MyST\\files\\NAFTRAC_20180131.csv', skiprows=2)
         df = df.loc[:, ['Ticker', 'Peso (%)']]
         df.dropna(subset=['Peso (%)'], inplace=True)
-        df['Ticker'] = df['Ticker'].str.replace('*', '')
+        df['Ticker'] = df['Ticker'].str.replace('*', '', regex = False)
         df['Ticker'] = df['Ticker'].str.replace('MEXCHEM', 'ORBIA')
-        df['Ticker'] = df['Ticker'].str.replace('LIVEPOLC.1', 'LIVEPOLC-1')
+        df['Ticker'] = df['Ticker'].str.replace('LIVEPOLC.1', 'LIVEPOLC-1', regex = False)
         df['Ticker'] = df['Ticker'].str.replace('GFREGIOO', 'RA')
         df.set_index('Ticker', inplace=True)
         df.drop(['KOFL', 'MXN', 'BSMXB'], inplace=True)
@@ -75,7 +75,7 @@ class Passive:
         historic['Rend'] = historic['Capital_Total'].pct_change()
         historic.fillna(0, inplace=True)
 
-        return historic.iloc[:, -3:]
+        return historic.iloc[:, -2:]
 
     def get_pre_pandemic(self) -> pd.DataFrame:
         df = self.get_passive_table()
@@ -83,7 +83,7 @@ class Passive:
         df['Rend_accum'] = (df['Capital_Total'] - df['Capital_Total'][0]) / df['Capital_Total'][0]
         return df
 
-    def get_en_pandemic(self) -> pd.DataFrame:
+    def get_in_pandemic(self) -> pd.DataFrame:
         df = self.get_passive_table()
         df = df.iloc[25:]
         df['Rend_accum'] = (df['Capital_Total'] - df['Capital_Total'][0]) / df['Capital_Total'][0]

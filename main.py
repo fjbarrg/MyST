@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Optional
 
-from .functions import Passive
+from functions import Passive
 
 
 class Main:
@@ -18,4 +18,4 @@ class Main:
 
     @staticmethod
     def get_passive_in_pandemic():
-        return print(Passive().get_en_pandemic())
+        return print(Passive().get_in_pandemic())
