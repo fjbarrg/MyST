@@ -1,7 +1,5 @@
-import pandas as pd
 from typing import Optional
-
-from functions import Passive
+from functions import Passive, Active, Metrics
 
 
 class Main:
@@ -19,3 +17,12 @@ class Main:
     @staticmethod
     def get_passive_in_pandemic():
         return print(Passive().get_in_pandemic())
+
+
+if __name__ == "__main__":
+    print(Passive().get_pre_pandemic())
+    print(Passive().get_in_pandemic())
+    print(Active().get_in_pandemic())
+    print(Active().get_historical_operations())
+    print(Metrics().get_metrics())
+    #Correrlo con python -m main
